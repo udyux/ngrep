@@ -1,0 +1,15 @@
+{
+  "name": "ngrep",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "fs-extra": "^10.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.6.0",
+    "eslint-config-udyux": "^3.0.2",
+    "eslint-plugin-prettier": "^4.0.0",
+    "prettier": "^2.5.1"
+  }
+}
