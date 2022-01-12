@@ -2,7 +2,7 @@ const { resolve } = require('path')
 const fs = require('fs-extra')
 
 const tStart = Date.now()
-const workspaceRoot = resolve('./')
+const rootPath = process.cwd()
 const [grepArg] = process.argv.slice(2)
 const regex = new RegExp(grepArg.replace(/(\.|\/)/, $m => `\\${$m}`))
 const grep = regex.test.bind(regex)
@@ -45,7 +45,7 @@ const walkDirs = path =>
       )
     )
 
-walkDirs(workspaceRoot)
+walkDirs(rootPath)
   .then(results => [
     results.reduce((matchedFiles, [path, match]) => (match ? [...matchedFiles, path] : matchedFiles), []),
     results.length
@@ -53,9 +53,8 @@ walkDirs(workspaceRoot)
   .then(([matchedFiles, totalFiles]) => {
     const tEnd = (Date.now() - tStart) * 0.001
     const { length } = matchedFiles
+    console.log(`${totalFiles} files searched in ${tEnd.toFixed(2)} seconds`)
+    console.log(`${length || 'No'} file${!length || length > 1 ? 's' : ''} found with matching term\n--`)
 
-    console.log(`${totalFiles} searched in ${tEnd.toFixed(2)} seconds`)
-    console.log(`${length || 'No'} file${!length || length > 1 ? 's' : ''} found with matching term`)
-
-    if (length) console.log(matchedFiles.map(file => file.replace(`${workspaceRoot}/`, '')))
+    if (length) console.log(matchedFiles.map(file => file.replace(`${rootPath}/`, '')).join('\n'))
   })
