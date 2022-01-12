@@ -1,5 +1,7 @@
 # ngrep
 
+> CLI util to search for a string withing the current directory.
+
 ## Install
 
 From the project root directory, run `yarn`.
